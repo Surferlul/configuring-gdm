@@ -1,37 +1,49 @@
-## Welcome to GitHub Pages
+## How
 
-You can use the [editor on GitHub](https://github.com/Surferlul/configuring-gdm/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+All of the configurations for the gdm display manager are managed by the gdm user. Usually options are managed by obscure config files, and I have always found it to be an annoyance trying to find a way to change settings in gdm (example: try figuring out how to properly change the keyboard layout selection in gdm).
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+But since all the settings (which are regular gnome settings) are managed by gdm you can change them by gaining access to the gdm account and launching settings applications (gnome-control-center, gnome-tweaks, dconf-editor, dconf, gsettings, etc...). For some settings you don't even need desktop access (changing the keyboard layout selection), but for others you do (changing display resolution), so I'll go over two methods.
 
-### Markdown
+## No desktop access
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+We can (after providing the gdm user authorization rights) simply execute applications as the gdm user and change settings.
 
-```markdown
-Syntax highlighted code block
+First we need to provide authorization rights:
 
-# Header 1
-## Header 2
-### Header 3
+~~~bash
+xhost +SI:localuser:gdm
+~~~
 
-- Bulleted
-- List
+Then we launch an application:
 
-1. Numbered
-2. List
+~~~bash
+sudo -u gdm dbus-launch <application>
+# for example:
+# launching the settings app
+sudo -u gdm dbus-launch gnome-control-center
+# launching a shell as gdm user
+sudo -u gdm dbus-launch $SHELL
+# you can launch any application as gdm user from that shell
+~~~
 
-**Bold** and _Italic_ and `Code` text
+Now revoke authorization rights again:
 
-[Link](url) and ![Image](src)
-```
+~~~bash
+xhost -SI:localuser:gdm
+~~~
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+### Gaining desktop access
 
-### Jekyll Themes
+You can gain access to an entire gnome desktop as the gdm user. From there you can launch and configure how you want and will gain access to some settings like display resolution
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Surferlul/configuring-gdm/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+To gain desktop access the gdm user needs to have a password
 
-### Support or Contact
+Setting password for gdm:
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+~~~bash
+sudo passwd gdm
+~~~
+
+Now you can log out of your account and into gdm. You will have to press the "not listed?" option in the user overview to log into gdm. Now enter the username "gdm" and your chosen password.
+
+Voilà! No gdm configuration pain anymore.
