@@ -44,6 +44,18 @@ Setting a password for gdm:
 sudo passwd gdm
 ~~~
 
-Now you can log out of your account and into gdm. You must press the "not listed?" option in the user overview to log into gdm. Now enter the username "gdm" and your chosen password.
+![password example](https://raw.githubusercontent.com/Surferlul/configuring-gdm/gh-pages/pictures/gdm_password.png)
+
+Now you can log out of your account and into gdm. You must press the "Not listed?" option in the user overview to log into gdm.
+
+![Not listed?](https://raw.githubusercontent.com/Surferlul/configuring-gdm/gh-pages/pictures/login_page.png)
+
+Now enter the username "gdm" and your chosen password to access the desktop.
+
+![Username](https://raw.githubusercontent.com/Surferlul/configuring-gdm/gh-pages/pictures/uname.png)
+
+![Password](https://raw.githubusercontent.com/Surferlul/configuring-gdm/gh-pages/pictures/passwd.png)
+
+![Desktop](https://raw.githubusercontent.com/Surferlul/configuring-gdm/gh-pages/pictures/desktop.png)
 
 Voilà! No gdm configuration pain anymore.
